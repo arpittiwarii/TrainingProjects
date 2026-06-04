@@ -1,0 +1,18 @@
+I have an intermittent bug in a Node.js / Express service.
+Stack: Node.js, Sequelize, PostgreSQL master-slave, BullMQ, Redis
+
+Symptom: [describe what you observe — error message, wrong data, silent failure]
+Frequency: [always / intermittently / only under load]
+Recent changes: [what changed before this started happening]
+
+Error / log output:
+[paste error or relevant logs]
+
+Relevant code:
+[paste the function(s) involved]
+
+Please:
+1. List the 3 most likely root causes in order of probability
+2. For each cause, explain how to verify it
+3. Suggest the fix for the most likely cause
+4. Flag if this could be a master-slave replication lag issue

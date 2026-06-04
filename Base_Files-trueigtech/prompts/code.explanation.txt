@@ -1,0 +1,16 @@
+Code Explanation Prompt
+PROMPT — When reading unfamiliar code:
+
+Explain this Node.js code to a backend developer.
+
+Tell me:
+1. What it does in plain English (one paragraph)
+2. The key JavaScript/Node.js concepts it uses
+   (and explain each one if non-obvious)
+3. Why it was likely written this way
+   (what problem does this approach solve?)
+4. Any parts that look risky or non-standard
+5. What I need to understand before safely modifying it
+6. The tests I should write if I need to change it
+
+[paste code]

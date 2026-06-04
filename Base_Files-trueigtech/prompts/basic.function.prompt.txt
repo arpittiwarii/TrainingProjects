@@ -1,0 +1,33 @@
+JS Function Generation Prompt
+PROMPT — Standard JS function generation template:
+
+Write a Node.js function following TrueIGTech standards.
+
+Stack: Node.js (JavaScript, NOT TypeScript), Express, Sequelize,
+       PostgreSQL master-slave, BullMQ, Redis
+
+Code style:
+- const by default, let when needed, never var
+- async/await only — no .then() chains or callbacks
+- Named exports only — no default exports
+- Arrow functions for anonymous functions
+- No semicolons, single quotes, 2-space indent
+
+Function to write:
+[function name]([parameters])
+
+Purpose: [what it does in one sentence]
+
+Requirements:
+- [specific requirement 1]
+- [specific requirement 2]
+- Input validation at the top
+- Custom error classes for domain errors (PlayerNotFoundError, etc.)
+- JSDoc with @param, @returns, @throws
+- Must be idempotent: [describe what idempotency means for this function]
+
+Related code for pattern reference:
+[paste an existing function from the codebase]
+
+Self-review before finishing: check for race conditions,
+missing null checks, and unhandled async edge cases.

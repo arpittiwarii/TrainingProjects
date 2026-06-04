@@ -1,0 +1,14 @@
+Please review the following code critically.
+This is production code for a real-money iGaming platform.
+
+Focus on:
+1. Security vulnerabilities (SQL injection, auth bypass, missing validation)
+2. Financial logic errors (balance operations, bonus calculations)
+3. Race conditions and concurrency issues
+4. Missing error handling that could cause silent failures
+5. Audit logging gaps — what player actions are not being recorded?
+6. Performance issues (N+1 queries, missing indexes, large in-memory ops)
+7. Edge cases the code does not handle
+
+Be direct. Prioritise by severity. Do not pad with compliments.
+[paste your code here]

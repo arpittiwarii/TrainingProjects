@@ -1,0 +1,14 @@
+Write a Sequelize migration for the following schema change.
+
+Change: [describe what you are adding/modifying/removing]
+
+Requirements:
+- Use queryInterface.createTable / addColumn / addIndex as appropriate
+- Include the full up() and down() functions
+- Add appropriate indexes for all foreign keys and commonly queried columns
+- Use snake_case for column names
+- Include timestamps (created_at, updated_at) if creating a new table
+- Add a comment on any non-obvious column explaining its purpose
+
+Existing related models for context:
+[paste relevant model definitions]

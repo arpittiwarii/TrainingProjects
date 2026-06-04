@@ -1,0 +1,22 @@
+Performance Review Prompt
+PROMPT — When code works but might be slow under load:
+
+Review this Node.js code for performance issues.
+This function is called ~500 times per second at peak.
+
+Stack: Node.js, Sequelize, PostgreSQL (10M+ player records), Redis
+
+Check for:
+1. N+1 query problems (queries inside loops)
+2. Missing database indexes for the queries used
+3. Synchronous operations that block the event loop
+4. Data that should be cached in Redis but is not
+5. Unnecessary sequential awaits that could be Promise.all()
+6. Large in-memory operations (sorting/filtering 10k+ records)
+
+For each issue found:
+- Explain WHY it is a problem at scale
+- Suggest the specific fix
+- Estimate the performance impact if possible
+
+[paste your code]

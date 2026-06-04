@@ -1,0 +1,17 @@
+Context:
+- Platform: TrueIGTech iGaming (real-money casino/sportsbook)
+- Stack: Node.js, Express, Sequelize, PostgreSQL (master-slave),
+         BullMQ, Redis, Socket.io
+- Module: [e.g. Bonus Engine / Player Management / Sportsbook]
+
+Feature to build:
+[Describe the feature in 2-3 sentences]
+
+Before I write any code, please provide:
+1. All edge cases and failure scenarios I must handle
+2. Concurrency risks (multiple simultaneous requests, race conditions)
+3. Database schema recommendation (tables, indexes, constraints)
+4. BullMQ job design if background processing is needed
+5. Security concerns specific to real-money iGaming
+6. 2 alternative implementation approaches with trade-offs
+7. Questions I should ask my PM/tech lead before starting

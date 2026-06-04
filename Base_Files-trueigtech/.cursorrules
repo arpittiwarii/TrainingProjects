@@ -1,0 +1,42 @@
+// .cursorrules — place in project root
+
+## Project: TrueIGTech iGaming Platform
+
+### Stack
+- Runtime: Node.js (JavaScript only — NO TypeScript)
+- Framework: Express.js
+- ORM: Sequelize with PostgreSQL
+- DB: PostgreSQL master-slave (writes to master, reads from slave)
+- Queue: BullMQ with Redis adapter
+- Realtime: Socket.io with Redis adapter
+- Cache: Redis
+
+### Code Style
+- No semicolons at line endings
+- Single quotes for strings
+- 2-space indentation
+- async/await only — no raw Promise chains or callbacks
+- Arrow functions for all anonymous functions
+- Named exports only — no default exports in services
+
+### Architecture Rules
+- All DB writes go to master connection
+- All DB reads go to slave connection (replication lag is acceptable)
+- All background work goes through BullMQ — never block the request cycle
+- All errors must be caught and forwarded to the error middleware
+- No business logic in route handlers — services only
+- Every service function must have JSDoc with @param and @returns
+
+### Domain Context
+- This is a real-money iGaming platform
+- Player accounts hold real funds — treat all balance operations as financial transactions
+- Bonus logic must be idempotent — duplicate requests must not double-credit
+- All player actions must be logged for audit purposes
+- KYC/AML compliance: never expose player PII in API responses beyond what is necessary
+
+### When generating code
+- Always include input validation
+- Always include error handling with appropriate HTTP status codes
+- Always include JSDoc comments
+- Always suggest an appropriate index if you create a new query
+- Flag any concurrency risk explicitly in a comment

@@ -1,0 +1,10 @@
+Refactor Long Function Prompt
+This function is too long (80+ lines) and does too many things.
+Refactor it by:
+1. Extracting validation into a separate validateInput() function
+2. Extracting the core business logic into named sub-functions
+3. Keeping the main function as an orchestrator under 30 lines
+4. Preserving ALL existing behaviour — no logic changes
+5. Adding JSDoc to each extracted function
+
+[paste function]

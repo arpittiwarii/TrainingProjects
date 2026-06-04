@@ -1,0 +1,11 @@
+Error Handling Addition Prompt
+This code has insufficient error handling for a production iGaming platform.
+Add proper error handling:
+1. Wrap all async operations in try/catch
+2. Use custom error classes for domain errors (not generic Error)
+3. Ensure all errors propagate via next(err) in Express handlers
+4. Add specific error messages that will be useful in logs
+5. Ensure no errors are silently swallowed
+Do NOT change business logic. Only add error handling.
+
+[paste code]

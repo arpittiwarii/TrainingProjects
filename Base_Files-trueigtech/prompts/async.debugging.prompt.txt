@@ -1,0 +1,20 @@
+Async Debugging Prompt
+PROMPT — When something works sometimes but not always:
+
+I have an intermittent async bug in Node.js.
+
+Symptom: [describe the observed behaviour]
+Frequency: [always / 1 in 10 / under load / after specific sequence]
+Stack: Node.js, Express, Sequelize, PostgreSQL master-slave, BullMQ
+
+The relevant code:
+[paste the async functions involved]
+
+Before suggesting a fix, please:
+1. Identify all places where a race condition could occur
+2. Identify whether this could be a Promise not being awaited
+3. Identify whether this could be master/slave replication lag
+4. Identify whether this could be a BullMQ job retry issue
+5. Rank the likely causes by probability
+6. For the most likely cause, explain HOW to verify it (not just what it is)
+7. Then suggest the fix

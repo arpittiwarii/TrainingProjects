@@ -1,0 +1,11 @@
+Please explain the following code to me.
+I am a backend developer working on a Node.js iGaming platform.
+
+Tell me:
+1. What this code does in plain English (one paragraph)
+2. Why it might have been written this way (what problem does it solve)
+3. Any parts that look unusual, risky, or non-standard — and why
+4. What I would need to know before modifying it safely
+5. What tests I should write if I am changing it
+
+[paste the code here]

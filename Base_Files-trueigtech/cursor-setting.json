@@ -1,0 +1,9 @@
+{
+  "cursor.general.enableShadowWorkspace": true,
+  "cursor.chat.showSuggestedFiles": true,
+  "cursor.composer.alwaysSearchWeb": false,
+  "cursor.privacy.telemetryEnabled": false,
+  "cursor.features.inlineDiffs": true,
+  "cursor.chat.defaultModel": "claude-sonnet-4-5",
+  "cursor.general.gitGraphEnabled": true
+}

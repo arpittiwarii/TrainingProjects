@@ -1,0 +1,25 @@
+Generate a Node.js service file and accompanying unit tests.
+
+Service name: [e.g. referralService]
+Purpose: [what it does in one sentence]
+
+Functions needed:
+- [functionName(params)]: [what it does, what it returns]
+- [functionName(params)]: [what it does, what it returns]
+
+Context:
+- Uses Sequelize models: [list relevant models]
+- Writes go to master DB, reads from slave
+- Background jobs use BullMQ (queue name: [name])
+- Follow the pattern from: [paste an existing service as example]
+
+Requirements:
+- JSDoc for every function
+- Input validation at the top of each function
+- Error handling — throw with descriptive messages
+- No default exports
+
+For tests:
+- Unit tests only (mock DB calls)
+- Cover happy path + at least 2 error cases per function
+- Use Jest

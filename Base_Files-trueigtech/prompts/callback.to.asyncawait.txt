@@ -1,0 +1,9 @@
+Async Refactor Prompt
+Convert this callback-based code to async/await.
+Requirements:
+- Use async/await throughout — no .then() chains
+- Add try/catch with specific error handling
+- Preserve all existing behaviour
+- If multiple operations are independent, use Promise.all()
+
+[paste callback code]
