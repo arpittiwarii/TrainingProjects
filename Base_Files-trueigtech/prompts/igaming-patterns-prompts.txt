@@ -1,0 +1,80 @@
+12. iGaming-Specific Prompt Patterns
+
+
+
+The following patterns are specific to the TrueIGTech platform. Each addresses a class of problem that comes up repeatedly in iGaming development — and that generic AI has no awareness of without explicit prompting.
+
+Pattern 1 — Financial Transaction Safety
+
+📐 PATTERN
+Use this pattern any time code touches player balances, credits, debits, or wagering.
+
+Append to your prompt:
+"This is a financial transaction on a real-money platform.
+ Ensure: (1) atomic DB operations or explicit transactions,
+ (2) idempotency — duplicate calls must not double-apply,
+ (3) full audit log entry before and after the state change,
+ (4) clear rollback behaviour if any step fails."
+
+
+Pattern 2 — Wagering Requirement Logic
+
+📐 PATTERN
+Use this pattern for any feature that involves bonus wagering tracking.
+
+Append to your prompt:
+"Wagering requirement context:
+ - Wagering tracks how much a player has bet using bonus funds
+ - Only bets placed with bonus balance count toward wagering
+ - Real-money bets do NOT contribute to wagering
+ - The bonus unlocks when wagered_amount >= (bonus_amount × wagering_multiplier)
+ - Expired bonuses: wagering progress is lost, not transferred
+ - Ensure wagering_amount never exceeds the requirement (cap it)"
+
+
+Pattern 3 — Concurrent Player Sessions
+
+📐 PATTERN
+Use when building anything that a player can interact with from multiple
+devices or sessions simultaneously.
+
+Append to your prompt:
+"Concurrency context:
+ - Players can have multiple active sessions simultaneously
+ - Any operation that reads-then-writes player state must handle
+   concurrent modification (optimistic locking or DB-level locking)
+ - Use SELECT FOR UPDATE for balance operations in PostgreSQL
+ - BullMQ jobs for the same player must be serialised (use player ID
+   as the job key to prevent parallel execution)"
+
+
+Pattern 4 — KYC/AML Gate
+
+📐 PATTERN
+Use when building any feature that requires regulatory compliance checks.
+
+Append to your prompt:
+"Compliance gates:
+ - KYC must be VERIFIED before: first withdrawal, bonuses above €100,
+   account limits changes
+ - AML check must pass before any withdrawal > €2000
+ - These checks must happen in the service layer, not the route layer
+ - Failed compliance checks return 403 with a specific error code
+   (not a generic error) so the frontend can display the correct message
+ - All compliance check outcomes must be logged to the compliance_log table"
+
+
+Pattern 5 — Master-Slave DB Routing
+
+📐 PATTERN
+Use any time you are writing code that queries the database.
+
+Append to your prompt:
+"DB routing rules:
+ - All INSERT, UPDATE, DELETE → master connection
+ - All SELECT for display purposes → slave connection
+ - SELECT that immediately precedes a write (read-then-write) → master
+   (to avoid replication lag causing stale reads before critical writes)
+ - Never perform a write on slave connection
+ - In Sequelize: pass { connection: master } or { connection: slave }"
+
