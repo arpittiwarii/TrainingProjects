@@ -1,0 +1,19 @@
+Review this Sequelize query for performance issues.
+The table has 10M+ rows and this query runs 200 times/second.
+
+Current query:
+[paste Sequelize findAll / findOne call]
+
+Table schema:
+[paste CREATE TABLE statement or Model definition]
+
+Existing indexes:
+[paste \d tablename from psql or model indexes array]
+
+Please:
+1. Identify if this will cause a full table scan
+2. Suggest the optimal index for this query
+3. Identify any N+1 risk
+4. Suggest query rewrites if the Sequelize pattern is inefficient
+5. Flag if this should use master or slave connection
+6. Estimate relative performance gain of your suggestion

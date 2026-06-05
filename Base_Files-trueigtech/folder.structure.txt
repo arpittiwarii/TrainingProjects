@@ -1,0 +1,39 @@
+Project Structure
+# TrueIGTech backend project structure
+src/
+  app.js              # Express app setup (no server listen here)
+  server.js           # HTTP server + graceful shutdown
+  routes/             # Route definitions only — no logic
+    index.js          # Aggregates all route modules
+    player.routes.js
+    bonus.routes.js
+    wallet.routes.js
+    sportsbook.routes.js
+  controllers/        # Request/response orchestration
+    player.controller.js
+    bonus.controller.js
+  services/           # ALL business logic
+    playerService.js
+    bonusService.js
+    walletService.js
+  models/             # Sequelize model definitions
+    index.js          # Sequelize initialisation + associations
+    Player.js
+    PlayerBonus.js
+    Transaction.js
+  middleware/         # Reusable middleware
+    auth.js
+    validate.js
+    rateLimiter.js
+    errorHandler.js
+    requestLogger.js
+  config/             # All configuration
+    database.js
+    redis.js
+    env.js
+  errors/             # Custom error classes
+    index.js
+  utils/              # Pure utility functions
+    logger.js
+    pagination.js
+    currency.js

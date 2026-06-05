@@ -1,0 +1,33 @@
+Full Feature Scaffold Prompt
+PROMPT — Full feature scaffold:
+
+Generate a complete TrueIGTech backend feature following our architecture.
+
+Stack: Node.js (JavaScript), Express, Sequelize, PostgreSQL master-slave,
+       BullMQ for background jobs, Redis for caching.
+
+Architecture rules:
+- Routes: HTTP only — validate + call controller
+- Controllers: orchestrate — no DB access
+- Services: all business logic — no req/res
+- Use asyncHandler wrapper in controllers
+- Named exports only, no default exports
+- async/await only, no .then() chains
+- DECIMAL(10,2) for all monetary values
+- All writes to master, reads from slave
+
+Feature to generate:
+[describe the feature — e.g. "Cashback bonus calculation and crediting"]
+
+Generate:
+1. Joi schema file (schemas/[name].schema.js)
+2. Route file (routes/[name].routes.js)
+3. Controller (controllers/[name].controller.js)
+4. Service (services/[name]Service.js)
+5. Any Sequelize migration needed
+
+Include: input validation, IDOR checks, idempotency, error classes,
+JSDoc on all service functions, transaction where appropriate.
+
+Existing pattern to match:
+[paste bonusService.js as reference]

@@ -1,0 +1,21 @@
+Write a Sequelize migration for PostgreSQL.
+
+Change: [describe what schema change is needed]
+
+Rules:
+- UUID primary keys using DataTypes.UUIDV4
+- DECIMAL(10,2) for monetary columns
+- snake_case column names, underscored: true
+- Include both up() and down()
+- Add indexes for: all foreign keys, all columns used in WHERE clauses,
+  partial indexes where only a subset of rows are queried
+- Use queryInterface.createTable / addColumn / addIndex
+- Add column comments for non-obvious fields
+
+Existing related model for reference:
+[paste model file]
+
+Self-review before finishing:
+- Does down() fully reverse up()?
+- Are foreign key constraints included?
+- Is there a missing index that will cause a slow query?
