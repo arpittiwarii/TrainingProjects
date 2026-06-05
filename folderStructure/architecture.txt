@@ -1,0 +1,99 @@
+Project Structure
+# TrueIGTech backend project structure
+src/
+  app.js              # Express app setup (no server listen here)
+  server.js           # HTTP server + graceful shutdown
+  routes/             # Route definitions only — no logic
+    index.js          # Aggregates all route modules
+    player.routes.js
+    bonus.routes.js
+    wallet.routes.js
+    sportsbook.routes.js
+  controllers/        # Request/response orchestration
+    player.controller.js
+    bonus.controller.js
+  services/           # ALL business logic
+    playerService.js
+    bonusService.js
+    walletService.js
+  models/             # Sequelize model definitions
+    index.js          # Sequelize initialisation + associations
+    Player.js
+    PlayerBonus.js
+    Transaction.js
+  middleware/         # Reusable middleware
+    auth.js
+    validate.js
+    rateLimiter.js
+    errorHandler.js
+    requestLogger.js
+  config/             # All configuration
+    database.js
+    redis.js
+    env.js
+  errors/             # Custom error classes
+    index.js
+  utils/              # Pure utility functions
+    logger.js
+    pagination.js
+    currency.js
+
+
+// ✅ Success response — always wrap in { success, data }:
+{
+  "success": true,
+  "data": {
+    "id": "uuid",
+    "bonusType": "DEPOSIT_MATCH",
+    "amount": 100.00,
+    "status": "active"
+  }
+}
+// ✅ List response — always include pagination:
+{
+  "success": true,
+  "data": [...],
+  "pagination": {
+    "total": 248,
+    "page": 1,
+    "limit": 20,
+    "totalPages": 13
+  }
+}
+
+// ✅ Error response — always include code and message:
+{
+  "error": {
+    "code": "BONUS_ALREADY_ACTIVE",
+    "message": "Player already has an active DEPOSIT_MATCH bonus"
+  }
+}
+
+// ❌ Never return raw DB records:
+{ "id": 1, "player_id": "...", "created_at": "...", "__v": 0 }
+// ❌ Never return different shapes for success and error:
+{ "status": "error", "msg": "something" }   // inconsistent shape
+
+200 OK
+Successful GET, PATCH, PUT — returns the updated resource
+201 Created
+Successful POST that creates a resource — returns the created resource
+204 No Content
+Successful DELETE — no response body
+400 Bad Request
+Validation error — malformed input, missing required fields
+401 Unauthorized
+Missing or invalid authentication token
+403 Forbidden
+Authenticated but not authorised — IDOR, role-based access
+404 Not Found
+Resource does not exist
+409 Conflict
+Duplicate resource — bonus already exists, idempotency violation
+422 Unprocessable
+Validation passed but business rule failed — insufficient balance
+429 Too Many Req
+Rate limit exceeded
+500 Server Error
+Unexpected error — never return 500 for operational errors
+
