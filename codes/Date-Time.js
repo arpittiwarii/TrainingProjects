@@ -73,3 +73,5 @@
 
 // // const date = parseISO("2026-06-05T04:30:00Z");
 // // console.log(date)
+const date = new Date()
+console.log(date)
