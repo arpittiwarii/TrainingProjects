@@ -46,6 +46,39 @@
 //     return Promise.resolve("Paid");
 // }
 
+// try{
+//     const [user, orders, paymentstatus] = await Promise.all([
+//         getUser(),getOrders(),getPayment()
+//     ])
+//     console.log(user, orders, paymentstatus)
+// }catch(err){
+//     console.log(err)
+// }
+
+const post = async()=>{
+    function getUser() {
+        return Promise.resolve({ id: 1 });
+    }
+    
+    function getOrders(userId) {
+        return Promise.resolve(["Order1", "Order2"]);
+    }
+    
+    function getPayment(order) {
+        return Promise.reject("order not found, out of stock");
+    }
+    
+    try{
+        const [user, orders, paymentstatus] = await Promise.all([
+            getUser(),getOrders(),getPayment()
+        ])
+        console.log(user, orders, paymentstatus)
+    }catch(err){
+        console.log(err)
+    }
+}
+console.log(post)
+
 // getUser()
 //     .then(user => getOrders(user.id))
 //     .then(orders => getPayment(orders[0]))
