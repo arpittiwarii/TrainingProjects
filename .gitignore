@@ -2,5 +2,8 @@ node_modules
 package.json
 package-lock.json
 .env
+<<<<<<< HEAD
 seeder.js
 test.js
+=======
+>>>>>>> b818d13ca67a3bef52fac52a0373827e27b71fd6
