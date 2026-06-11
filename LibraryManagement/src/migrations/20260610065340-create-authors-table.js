@@ -1,8 +1,8 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
-module.exports = {
-  async up (queryInterface, Sequelize) {
+export default {
+  async up(queryInterface, Sequelize) {
     /**
      * Add altering commands here.
      *
@@ -16,22 +16,25 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-    
+
       name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-    
+
       bio: {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-    
+      birth_date: {
+        type: Sequelize.DATEONLY,
+        allowNull: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    
+
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -42,12 +45,13 @@ module.exports = {
     );
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add reverting commands here.
      *
      * Example:
      * await queryInterface.dropTable('users');
      */
+    await queryInterface.dropTable('authors');
   }
 };

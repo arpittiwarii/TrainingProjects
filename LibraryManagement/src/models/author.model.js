@@ -10,14 +10,10 @@ const Author = sequelize.define('authors', {
   },
   name: {
     type: DataTypes.STRING(255),
-    allowNull: false,
+    allowNull: true,
   },
   bio: {
     type: DataTypes.TEXT,
-    allowNull: true,
-  },
-  birth_date: {
-    type: DataTypes.DATEONLY,
     allowNull: true,
   },
 }, {

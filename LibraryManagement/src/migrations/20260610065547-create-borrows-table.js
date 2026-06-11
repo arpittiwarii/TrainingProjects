@@ -1,48 +1,46 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
-module.exports = {
-  async up (queryInterface, Sequelize) {
+export default {
+  async up(queryInterface, Sequelize) {
     /**
      * Add altering commands here.
      *
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable('borrows',{
-      id:{
-        type:Sequelize.INTEGER,
-        primaryKey:true,
-        allowNull:false,
-        autoIncrement:true
+    await queryInterface.createTable('borrows', {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
       },
-      userId:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-        references:{
-          model:'users',
-          key:'id'
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id'
         },
-        onDelete:'RESTRICT',
-        onUpdate:'CASCADE'
+        onDelete: 'RESTRICT',
       },
-      bookId:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-        references:{
-          model:'books',
-          key:'id'
+      bookId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'books',
+          key: 'id'
         },
-        onDelete:'RESTRICT',
-        onUpdate:'CASCADE'
+        onDelete: 'RESTRICT',
       },
-      borrowDate:{
-        type:Sequelize.DATE,
-        defaultValue:Sequelize.NOW
+      borrowDate: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       },
-      returnDate:{
-        type:Sequelize.DATE,
-        allowNull:true
+      returnDate: {
+        type: Sequelize.DATE,
+        allowNull: true
       },
       status: {
         type: Sequelize.ENUM(
@@ -56,7 +54,7 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue:Sequelize.NOW
+        defaultValue: Sequelize.NOW
       },
       updatedAt: {
         allowNull: false,
@@ -68,7 +66,7 @@ module.exports = {
     );
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add reverting commands here.
      *

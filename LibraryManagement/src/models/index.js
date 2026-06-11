@@ -1,12 +1,12 @@
-import Author from './Author.js';
-import Book from './Book.js';
-import User from './User.js';
-import Borrow from './Borrow.js';
+import Author from './author.model.js';
+import Book from './book.model.js';
+import User from './user.model.js';
+import Borrow from './borrow.model.js';
 
 Author.hasMany(Book, {
   foreignKey: 'authorId',
   as: 'books',
-  onDelete: 'RESTRICT',
+  onDelete: 'CASCADE',
 });
 
 Book.belongsTo(Author, {
@@ -17,6 +17,7 @@ Book.belongsTo(Author, {
 Book.hasMany(Borrow, {
   foreignKey: 'bookId',
   as: 'borrows',
+  onDelete: 'RESTRICT',
 });
 
 Borrow.belongsTo(Book, {
@@ -27,6 +28,7 @@ Borrow.belongsTo(Book, {
 User.hasMany(Borrow, {
   foreignKey: 'userId',
   as: 'borrows',
+  onDelete: 'RESTRICT',
 });
 
 Borrow.belongsTo(User, {

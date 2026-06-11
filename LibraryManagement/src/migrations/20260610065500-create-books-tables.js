@@ -1,8 +1,8 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
-module.exports = {
-  async up (queryInterface, Sequelize) {
+export default {
+  async up(queryInterface, Sequelize) {
     /**
      * Add altering commands here.
      *
@@ -10,15 +10,15 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     await queryInterface.createTable('books', {
-      id:{
-        type:Sequelize.INTEGER,
-        primaryKey:true,
-        autoIncrement:true
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
       },
-      title:{
-        type:Sequelize.STRING,
-        unique:true,
-        allowNull:false
+      title: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
       },
       isbn: {
         type: Sequelize.STRING,
@@ -39,15 +39,14 @@ module.exports = {
         allowNull: false,
         defaultValue: 1,
       },
-      authorId:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-        references:{
-          model:'authors',
-          key:'id'
+      authorId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'authors',
+          key: 'id'
         },
-        onDelete:'CASCADE',
-        onDelete:'RESTRICT'
+        onDelete: 'RESTRICT'
       },
       createdAt: {
         allowNull: false,
@@ -57,19 +56,20 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    
+
     });
     await queryInterface.sequelize.query(
       `ALTER SEQUENCE books_id_seq RESTART WITH 1001;`
     );
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add reverting commands here.
      *
      * Example:
      * await queryInterface.dropTable('users');
      */
+    await queryInterface.dropTable('books');
   }
 };

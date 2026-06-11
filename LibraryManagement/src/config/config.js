@@ -1,8 +1,8 @@
-module.exports={
+export default {
   "development": {
     "username": "postgres",
     "password": 'root',
-    "database": "library_db2",
+    "database": "library_db",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

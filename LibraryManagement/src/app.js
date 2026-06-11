@@ -1,10 +1,9 @@
-import express, { urlencoded } from "express"
+import express from "express"
 import { connectDB } from "./config/database.js";
 import './models/index.js'
 import ErrorHandler from "./middleware/errorHandler.js";
 import Routes from './routes/index.js'
 import dotenv from "dotenv"
-import { createRoutesStub } from "react-router-dom";
 dotenv.config()
 
 const app = express()
