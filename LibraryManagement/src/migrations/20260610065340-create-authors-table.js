@@ -31,14 +31,16 @@ export default {
         allowNull: true,
       },
       createdAt: {
-        allowNull: false,
         type: Sequelize.DATE,
       },
 
       updatedAt: {
-        allowNull: false,
         type: Sequelize.DATE,
       },
+      deletedAt: {
+        type: Sequelize.DATE,
+      },
+
     });
     await queryInterface.sequelize.query(
       `ALTER SEQUENCE authors_id_seq RESTART WITH 1001;`

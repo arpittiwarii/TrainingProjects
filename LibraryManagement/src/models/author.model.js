@@ -16,10 +16,14 @@ const Author = sequelize.define('authors', {
     type: DataTypes.TEXT,
     allowNull: true,
   },
+  birth_date: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+  },
 }, {
   tableName: 'authors',
+  timestamps: true,
   paranoid: true,
-  underscored: true,
 });
 
 export default Author;

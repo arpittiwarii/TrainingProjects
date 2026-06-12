@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import {sequelize} from "../config/database.js";
+import { sequelize } from "../config/database.js";
 
 const Book = sequelize.define(
   "books",
@@ -19,10 +19,6 @@ const Book = sequelize.define(
       allowNull: false,
       unique: true,
     },
-    authorId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     genre: {
       type: DataTypes.STRING(100),
       allowNull: true,
@@ -41,11 +37,19 @@ const Book = sequelize.define(
       allowNull: false,
       defaultValue: 1,
     },
+    authorId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'authors',
+        key: 'id'
+      },
+      onDelete: 'RESTRICT',
+      allowNull: false,
+    },
   },
   {
     tableName: "books",
     paranoid: true,
-    underscored: true,
   },
 );
 

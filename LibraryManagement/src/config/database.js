@@ -22,6 +22,7 @@ export const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERN
 export const connectDB = async () => {
     try {
         await sequelize.authenticate()
+        // await sequelize.sync({ alter: true })
         console.log("Database connected")
     }
     catch (err) {

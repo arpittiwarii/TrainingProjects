@@ -5,13 +5,11 @@ import Borrow from './borrow.model.js';
 
 Author.hasMany(Book, {
   foreignKey: 'authorId',
-  as: 'books',
   onDelete: 'CASCADE',
 });
 
 Book.belongsTo(Author, {
   foreignKey: 'authorId',
-  as: 'author',
 });
 
 Book.hasMany(Borrow, {

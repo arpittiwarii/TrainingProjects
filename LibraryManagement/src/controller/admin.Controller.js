@@ -12,7 +12,7 @@ export const getUserController = async (req, res, next) => {
 export const getBookController = async (req, res, next) => {
     try {
         const result = await adminService.getBookService()
-        return success(res, result, "Books list sent", 201)
+        return success(res, result.books, "Books list sent", 201)
     } catch (err) {
         next(err)
     }

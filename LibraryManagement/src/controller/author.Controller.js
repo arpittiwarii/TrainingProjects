@@ -1,5 +1,5 @@
 import { success } from '../utils/apiResponse.js'
-import {authorServices} from '../services/author.service.js'
+import * as authorServices from '../services/author.service.js'
 
 export const getAuthorsController = async (req, res, next) => {
     try {
