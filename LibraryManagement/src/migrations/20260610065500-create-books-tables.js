@@ -39,6 +39,10 @@ export default {
         allowNull: false,
         defaultValue: 1,
       },
+      genre: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       authorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -54,6 +58,9 @@ export default {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE,
+      },
+      deletedAt: {
         type: Sequelize.DATE,
       },
 

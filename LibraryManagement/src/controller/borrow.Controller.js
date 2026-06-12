@@ -22,7 +22,7 @@ export const borrowBookController = async (req, res, next) => {
 
 export const returnBookController = async (req, res, next) => {
     try {
-        const { borrowId } = req.params;
+        const borrowId = req.params.id;
         const returnRecord = await borrowService.returnBook(borrowId);
         return success(res, returnRecord, "Book returned", 200);
     } catch (err) {

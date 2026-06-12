@@ -13,7 +13,7 @@ const BorrowService = {
     },
 
     async ensureActiveUser(userId) {
-        const user = await User.findById(userId);
+        const user = await User.findByPk(userId);
         if (!user) {
             throw new Error('User not found');
         }
@@ -24,7 +24,7 @@ const BorrowService = {
     },
 
     async ensureBookIsAvailable(bookId) {
-        const book = await Book.findById(bookId);
+        const book = await Book.findByPk(bookId);
         if (!book) {
             throw new Error('Book not found');
         }
@@ -35,52 +35,54 @@ const BorrowService = {
     },
 
     async borrowBook(userId, bookId) {
-        const user = await this.ensureActiveUser(userId);
+        try {
+            const [user, book, borrowRecord] = await Promise.all([
+                this.ensureActiveUser(userId),
+                this.ensureBookIsAvailable(bookId),
+                Borrow.create({
+                    userId: userId,
+                    bookId: bookId,
+                    borrowDate: new Date(),
+                }),
+            ])
 
-        const activeBorrowCount = await Borrow.countDocuments({ user: userId, returnedAt: null });
-        if (activeBorrowCount >= this.MAX_ACTIVE_BORROWS) {
-            throw new Error(`User has reached the maximum of ${this.MAX_ACTIVE_BORROWS} active borrows`);
+            await Book.findByPk(bookId).then(book => {
+                book.decrement('availableCopies', { by: 1 })
+            });
+
+            return borrowRecord;
+        } catch (err) {
+            console.error(err)
+            throw err;
         }
-
-        const book = await this.ensureBookIsAvailable(bookId);
-
-        const borrowRecord = await Borrow.create({
-            user: userId,
-            book: bookId,
-            borrowedAt: new Date(),
-            dueAt: this.calculateDueDate(new Date(), this.DEFAULT_BORROW_DAYS),
-            renewals: 0,
-        });
-
-        await Book.findByIdAndUpdate(bookId, { $inc: { availableCopies: -1 } });
-
-        return borrowRecord;
     },
 
     async returnBook(borrowId) {
-        const borrowRecord = await Borrow.findById(borrowId);
+        console.log(borrowId)
+        const borrowRecord = await Borrow.findByPk(borrowId);
         if (!borrowRecord) {
             throw new Error('Borrow record not found');
         }
-        if (borrowRecord.returnedAt) {
+        if (borrowRecord.returnDate) {
             throw new Error('Book has already been returned');
         }
 
-        borrowRecord.returnedAt = new Date();
-        borrowRecord.fine = await this.calculateFine(borrowRecord);
+        borrowRecord.returnDate = new Date();
+        borrowRecord.status = "RETURNED";
         const savedRecord = await borrowRecord.save();
-
-        await Book.findByIdAndUpdate(borrowRecord.book, { $inc: { availableCopies: 1 } });
+        console.log('Saved Record: ', savedRecord, borrowRecord.bookId)
+        await Book.findByPk(borrowRecord.bookId).then(book => book.increment('availableCopies', { by: 1 })
+        );
 
         return savedRecord;
     },
 
     async renewBorrow(borrowId, extraDays = 7) {
-        const borrowRecord = await Borrow.findById(borrowId);
+        const borrowRecord = await Borrow.findByPk(borrowId);
         if (!borrowRecord) {
             throw new Error('Borrow record not found');
         }
-        if (borrowRecord.returnedAt) {
+        if (borrowRecord.returnDate) {
             throw new Error('Returned borrow cannot be renewed');
         }
         if (borrowRecord.renewals >= this.MAX_RENEWALS) {
@@ -97,7 +99,7 @@ const BorrowService = {
     },
 
     async getBorrowRecord(borrowId) {
-        const borrowRecord = await Borrow.findById(borrowId).populate('user book');
+        const borrowRecord = await Borrow.findByPk(borrowId, { include: ['user', 'book'] });
         if (!borrowRecord) {
             throw new Error('Borrow record not found');
         }
@@ -110,14 +112,27 @@ const BorrowService = {
             query.user = filter.userId;
         }
         if (filter.activeOnly) {
-            query.returnedAt = null;
+            query.returnDate = null;
         }
         if (filter.overdueOnly) {
             query.dueAt = { $lt: new Date() };
-            query.returnedAt = null;
+            query.returnDate = null;
         }
 
-        return Borrow.find(query).populate('user book');
+        return Borrow.findAll({
+            where: query, include: [
+                {
+                    model: User,
+                    as: 'user',
+                    attributes: ['id', 'name', 'email']
+                },
+                {
+                    model: Book,
+                    as: 'book',
+                    attributes: ['id', 'title', 'isbn']
+                }
+            ]
+        });
     },
 
     async getUserBorrowHistory(userId) {
@@ -126,7 +141,7 @@ const BorrowService = {
     },
 
     async calculateFine(borrowRecord) {
-        const effectiveReturn = borrowRecord.returnedAt ? new Date(borrowRecord.returnedAt) : new Date();
+        const effectiveReturn = borrowRecord.returnDate ? new Date(borrowRecord.returnDate) : new Date();
         const dueDate = new Date(borrowRecord.dueAt);
 
         if (effectiveReturn <= dueDate) {

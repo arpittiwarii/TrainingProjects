@@ -1,30 +1,32 @@
 import Book from "../models/book.model.js"
 import AppError from "../error/error.js"
+import Author from "../models/author.model.js"
 
 export const addBookService = async ({ title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies }) => {
     try {
-        const [...rest] = { title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies }
-        rest.forEach((field) => {
-            if (!field)
-                throw new AppError(`${field} is required `, 404)
-        })
+        // console.log(title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies)
+
         const author = await Author.findByPk(authorId)
+        // console.log(author)
         if (!author)
             throw new AppError('Author not found', 404)
+
         const book = await Book.create({ title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies })
-        console.log(book)
-        console.log(title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies)
         if (!book)
             throw new AppError('book now created, due to server problem', 500)
+
+        return book
     } catch (err) {
-        throw new AppError('Error adding book', 500)
+        console.error(err)
+        console.log('error hai ; ', err)
+        throw err;
     }
 }
 
 
 export const getBookService = async () => {
     try {
-        const books = await Book.findAll()
+        const books = await Book.findAll({ include: { model: Author, as: 'author', attributes: ['id', 'name'] } })
         if (!books)
             throw new AppError('No books found', 404)
         return books
@@ -34,18 +36,23 @@ export const getBookService = async () => {
 }
 export const updateBookService = async (id, updateData) => {
     try {
-        const [...rest] = { title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies }
+
+        console.log(updateData)
+        const { title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies } = updateData
+        const rest = [title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies]
         rest.forEach((field) => {
             if (!field)
                 throw new AppError(`${field} is required `, 404)
         })
+
         const book = await Book.findByPk(id)
         if (!book)
             throw new AppError('Book not found', 404)
-        await book.update(rest)
+        await book.update({ title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies })
         return book
     } catch (err) {
-        throw new AppError('Error updating book', 500)
+        console.error(err)
+        throw err;
     }
 }
 export const deleteBookService = async (id) => {

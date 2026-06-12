@@ -19,6 +19,7 @@ export default {
         publishedYear: 1997,
         totalCopies: 5,
         availableCopies: 5,
+        genre: "Fantasy",
         authorId: 1001,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -29,6 +30,7 @@ export default {
         publishedYear: 1925,
         totalCopies: 4,
         availableCopies: 4,
+        genre: "Classic",
         authorId: 1001,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -39,6 +41,7 @@ export default {
         publishedYear: 1851,
         totalCopies: 2,
         availableCopies: 2,
+        genre: "Adventure",
         authorId: 1001,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -49,6 +52,7 @@ export default {
         publishedYear: 1937,
         totalCopies: 3,
         availableCopies: 3,
+        genre: "Fantasy",
         authorId: 1002,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -59,6 +63,7 @@ export default {
         publishedYear: 1869,
         totalCopies: 4,
         availableCopies: 4,
+        genre: "Classic",
         authorId: 1002,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -69,6 +74,7 @@ export default {
         publishedYear: 1949,
         totalCopies: 4,
         availableCopies: 4,
+        genre: "Dystopian",
         authorId: 1003,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -79,6 +85,7 @@ export default {
         publishedYear: 1960,
         totalCopies: 6,
         availableCopies: 6,
+        genre: "Classic",
         authorId: 1004,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -89,6 +96,7 @@ export default {
         publishedYear: 1813,
         totalCopies: 2,
         availableCopies: 2,
+        genre: "Romance",
         authorId: 1005,
         createdAt: new Date(),
         updatedAt: new Date()

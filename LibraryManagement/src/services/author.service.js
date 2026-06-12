@@ -1,9 +1,15 @@
 import Author from '../models/author.model.js'
 import AppError from '../error/error.js'
+import Book from '../models/book.model.js'
 
 export const getAuthorsService = async () => {
     try {
-        const authors = await Author.findAll({ include: ['books'] })
+        const authors = await Author.findAll({
+            include: {
+                model: Book,
+                attributes: ['id', 'title']
+            }
+        })
         if (!authors)
             throw new AppError('No authors found', 404)
         return authors

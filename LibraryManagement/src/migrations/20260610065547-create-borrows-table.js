@@ -60,6 +60,9 @@ export default {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      deletedAt: {
+        type: Sequelize.DATE,
+      },
     });
     await queryInterface.sequelize.query(
       `ALTER SEQUENCE borrows_id_seq RESTART WITH 1001;`

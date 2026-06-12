@@ -7,6 +7,6 @@ export const getUserService = async () => {
     return { users }
 }
 export const getBookService = async () => {
-    const users = await User.findAll();
-    return { users }
+    const books = await Book.findAll();
+    return { books }
 }
