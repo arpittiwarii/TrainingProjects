@@ -2,8 +2,7 @@ import Borrow from '../models/borrow.model.js';
 import User from '../models/user.model.js';
 import Book from '../models/book.model.js';
 
-import sequelize from '../config/database.js';
-const t = sequelize.transaction();
+import { sequelize } from '../config/database.js';
 
 const BorrowService = {
     MAX_ACTIVE_BORROWS: 3,
@@ -41,20 +40,20 @@ const BorrowService = {
         try {
             await sequelize.transaction(async (t) => {
                 const [user, book, borrowRecord] = await Promise.all([
-                this.ensureActiveUser(userId),
-                this.ensureBookIsAvailable(bookId),
-                Borrow.create({
-                    userId: userId,
-                    bookId: bookId,
-                    borrowDate: new Date(),
-                }),
-            ])
+                    this.ensureActiveUser(userId),
+                    this.ensureBookIsAvailable(bookId),
+                    Borrow.create({
+                        userId: userId,
+                        bookId: bookId,
+                        borrowDate: new Date(),
+                    }),
+                ])
 
-            await Book.findByPk(bookId).then(book => {
-                book.decrement('availableCopies', { by: 1 })
-            });
+                await Book.findByPk(bookId).then(book => {
+                    book.decrement('availableCopies', { by: 1 })
+                });
 
-            return borrowRecord;
+                return borrowRecord;
             })
         } catch (err) {
             console.error(err)
