@@ -2,6 +2,9 @@ import Borrow from '../models/borrow.model.js';
 import User from '../models/user.model.js';
 import Book from '../models/book.model.js';
 
+import sequelize from '../config/database.js';
+const t = sequelize.transaction();
+
 const BorrowService = {
     MAX_ACTIVE_BORROWS: 3,
     MAX_RENEWALS: 2,
@@ -36,7 +39,8 @@ const BorrowService = {
 
     async borrowBook(userId, bookId) {
         try {
-            const [user, book, borrowRecord] = await Promise.all([
+            await sequelize.transaction(async (t) => {
+                const [user, book, borrowRecord] = await Promise.all([
                 this.ensureActiveUser(userId),
                 this.ensureBookIsAvailable(bookId),
                 Borrow.create({
@@ -51,6 +55,7 @@ const BorrowService = {
             });
 
             return borrowRecord;
+            })
         } catch (err) {
             console.error(err)
             throw err;
@@ -58,23 +63,24 @@ const BorrowService = {
     },
 
     async returnBook(borrowId) {
-        console.log(borrowId)
-        const borrowRecord = await Borrow.findByPk(borrowId);
-        if (!borrowRecord) {
-            throw new Error('Borrow record not found');
-        }
-        if (borrowRecord.returnDate) {
-            throw new Error('Book has already been returned');
-        }
+        await sequelize.transaction(async (t) => {
+            const borrowRecord = await Borrow.findByPk(borrowId);
+            if (!borrowRecord) {
+                throw new Error('Borrow record not found');
+            }
+            if (borrowRecord.returnDate) {
+                throw new Error('Book has already been returned');
+            }
 
-        borrowRecord.returnDate = new Date();
-        borrowRecord.status = "RETURNED";
-        const savedRecord = await borrowRecord.save();
-        console.log('Saved Record: ', savedRecord, borrowRecord.bookId)
-        await Book.findByPk(borrowRecord.bookId).then(book => book.increment('availableCopies', { by: 1 })
-        );
+            borrowRecord.returnDate = new Date();
+            borrowRecord.status = "RETURNED";
+            const savedRecord = await borrowRecord.save();
+            console.log('Saved Record: ', savedRecord, borrowRecord.bookId)
+            await Book.findByPk(borrowRecord.bookId).then(book => book.increment('availableCopies', { by: 1 })
+            );
 
-        return savedRecord;
+            return savedRecord;
+        })
     },
 
     async renewBorrow(borrowId, extraDays = 7) {
