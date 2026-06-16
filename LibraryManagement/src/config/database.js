@@ -1,33 +1,27 @@
-import Sequelize from "sequelize"
-import dotenv from "dotenv"
-dotenv.config();
+const Sequelize = require('sequelize');
+require('dotenv').config();
 
-// export const sequelize =await new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME,`${process.env.DB_PASSWORD}`,{
-//     host:process.env.DB_HOST,
-//     dialect:"postgres",
-//     port:process.env.DB_PORT
-// });`
-export const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
-    dialect: "postgres",
     port: process.env.DB_PORT,
+    dialect: 'postgres',
     pool: {
         max: 5,
         min: 0,
         acquire: 30000,
-        idle: 10000
-    }
+        idle: 10000,
+    },
 });
 
-export const connectDB = async () => {
+const connectDB = async () => {
     try {
-        await sequelize.authenticate()
-        // await sequelize.sync({ alter: true })
-        console.log("Database connected")
+        await sequelize.authenticate();
+        await sequelize.sync({ alter: true });
+        console.log('Database connected');
+        console.log(`Database: ${process.env.DB_NAME} connected on port ${process.env.DB_PORT}`);
+    } catch (err) {
+        console.log(err);
     }
-    catch (err) {
-        console.log(err)
-    }
-}
-// how we can put Promise.all here
-// module.exports={sequelize,connectDB}
+};
+
+module.exports = { sequelize, connectDB };

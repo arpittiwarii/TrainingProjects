@@ -1,9 +1,8 @@
 'use strict';
 
-import { create } from 'node:domain';
-import bcrypt from 'bcrypt';
+const bcrypt = require('bcrypt');
 /** @type {import('sequelize-cli').Migration} */
-export default {
+module.exports = {
   async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.

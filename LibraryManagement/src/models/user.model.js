@@ -1,5 +1,5 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../config/database.js";
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database.js');
 
 const User = sequelize.define(
   "users",
@@ -54,9 +54,9 @@ const User = sequelize.define(
   },
 );
 User.prototype.toJSON = function () {
-    const values = { ...this.get() };
-    delete values.password;
-    return values;
-  };
+  const values = { ...this.get() };
+  delete values.password;
+  return values;
+};
 
-export default User;
+module.exports = User;

@@ -1,5 +1,5 @@
 
-export const bookSchema = {
+const bookSchema = {
     type: 'object',
     required: ["title", "isbn", "publishedYear", "totalCopies", "authorId"],
     properties: {
@@ -38,3 +38,5 @@ export const bookSchema = {
         }
     }
 }
+
+module.exports = { bookSchema }

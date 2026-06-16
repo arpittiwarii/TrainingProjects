@@ -1,8 +1,8 @@
-import User from '../models/user.model.js'
-import bcrypt from 'bcrypt'
-import { generateToken } from './token.service.js'
+const User = require('../models/user.model.js')
+const bcrypt = require('bcrypt')
+const { generateToken } = require('./token.service.js')
 
-export const Login = async ({ email, password }) => {
+const Login = async ({ email, password }) => {
     if (!email && !password)
         throw new AppError("email and passsword is required", 404)
 
@@ -18,3 +18,5 @@ export const Login = async ({ email, password }) => {
 
     return ({ ...tokenData, user: user })
 }
+
+module.exports = { Login }

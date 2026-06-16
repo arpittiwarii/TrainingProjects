@@ -1,5 +1,5 @@
 
-export const registerSchema = {
+const registerSchema = {
     type: "object",
     required: ["name", "email", "password"],
     properties: {
@@ -26,7 +26,7 @@ export const registerSchema = {
         }
     }
 }
-export const loginSchema = {
+const loginSchema = {
     type: "object",
     required: ["email", "password"],
     properties: {
@@ -48,3 +48,5 @@ export const loginSchema = {
         }
     }
 }
+
+module.exports = { registerSchema, loginSchema }

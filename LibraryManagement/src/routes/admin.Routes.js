@@ -1,9 +1,9 @@
-import { Router } from "express";
-import * as adminController from "../controller/admin.Controller.js"
+const express = require('express');
+const adminController = require('../controller/admin.Controller.js');
 
-const routes = Router()
+const routes = express.Router();
 
-routes.get("/getUsers", adminController.getUserController)
-routes.get("/getBooks", adminController.getBookController)
+routes.get('/getUsers', adminController.getUserController);
+routes.get('/getBooks', adminController.getBookController);
 
-export default routes;
+module.exports = routes;

@@ -1,8 +1,8 @@
-import User from '../models/user.model.js'
-import bcrypt from 'bcrypt'
-import { generateToken } from './token.service.js'
+const User = require('../models/user.model.js')
+const bcrypt = require('bcrypt')
+const { generateToken } = require('./token.service.js')
 
-export const Register = async ({ name, email, password }) => {
+const Register = async ({ name, email, password }) => {
     const existingUser = await User.findOne({ where: { email } })
     if (existingUser)
         throw new AppError("User already existed", 404)
@@ -17,3 +17,5 @@ export const Register = async ({ name, email, password }) => {
 
     return ({ ...tokenData, user: user })
 }
+
+module.exports = { Register }

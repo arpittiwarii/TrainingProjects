@@ -1,8 +1,8 @@
-import Borrow from '../models/borrow.model.js';
-import User from '../models/user.model.js';
-import Book from '../models/book.model.js';
+const Borrow = require('../models/borrow.model.js');
+const User = require('../models/user.model.js');
+const Book = require('../models/book.model.js');
 
-import { sequelize } from '../config/database.js';
+const { sequelize } = require('../config/database.js');
 
 const BorrowService = {
     MAX_ACTIVE_BORROWS: 3,
@@ -158,4 +158,4 @@ const BorrowService = {
     },
 };
 
-export default BorrowService;
+module.exports = BorrowService;
