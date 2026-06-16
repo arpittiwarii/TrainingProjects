@@ -1,8 +1,8 @@
-import Author from '../models/author.model.js'
-import AppError from '../error/error.js'
-import Book from '../models/book.model.js'
+const Author = require('../models/author.model.js');
+const AppError = require('../error/error.js');
+const Book = require('../models/book.model.js');
 
-export const getAuthorsService = async () => {
+const getAuthorsService = async () => {
     try {
         const authors = await Author.findAll({
             include: {
@@ -17,7 +17,7 @@ export const getAuthorsService = async () => {
         throw new AppError('Error fetching authors', 500)
     }
 }
-export const addAuthorService = async ({ name, bio, birth_date }) => {
+const addAuthorService = async ({ name, bio, birth_date }) => {
     try {
         if (!name || !bio || !birth_date)
             throw new AppError('Name, bio, and birth date are required', 400)
@@ -29,7 +29,7 @@ export const addAuthorService = async ({ name, bio, birth_date }) => {
         throw new AppError('Error adding author', 500)
     }
 }
-export const updateAuthorService = async (id, updateData) => {
+const updateAuthorService = async (id, updateData) => {
     try {
         const author = await Author.findByPk(id)
         if (!author)
@@ -40,7 +40,7 @@ export const updateAuthorService = async (id, updateData) => {
         throw new AppError('Error updating author', 500)
     }
 }
-export const deleteAuthorService = async (id) => {
+const deleteAuthorService = async (id) => {
     try {
         const author = await Author.findByPk(id)
         if (!author)
@@ -51,11 +51,9 @@ export const deleteAuthorService = async (id) => {
         throw new AppError('Error deleting author', 500)
     }
 }
-
-
-export const authorServices = {
+module.exports = {
     getAuthorsService,
     addAuthorService,
     updateAuthorService,
-    deleteAuthorService
-}
+    deleteAuthorService,
+};

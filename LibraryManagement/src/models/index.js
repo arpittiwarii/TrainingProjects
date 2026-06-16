@@ -1,7 +1,7 @@
-import Author from './author.model.js';
-import Book from './book.model.js';
-import User from './user.model.js';
-import Borrow from './borrow.model.js';
+const Author = require('./author.model.js');
+const Book = require('./book.model.js');
+const User = require('./user.model.js');
+const Borrow = require('./borrow.model.js');
 
 Author.hasMany(Book, {
   foreignKey: 'authorId',
@@ -34,14 +34,7 @@ Borrow.belongsTo(User, {
   as: 'user',
 });
 
-export {
-  Author,
-  Book,
-  User,
-  Borrow,
-};
-
-export default {
+module.exports = {
   Author,
   Book,
   User,

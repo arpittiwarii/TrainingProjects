@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import { sequelize } from '../config/database.js';
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database.js');
 
 const Author = sequelize.define('authors', {
   id: {
@@ -26,4 +26,4 @@ const Author = sequelize.define('authors', {
   paranoid: true,
 });
 
-export default Author;
+module.exports = Author;

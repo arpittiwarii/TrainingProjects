@@ -1,5 +1,5 @@
 
-export const borrowSchema = {
+const borrowSchema = {
     type: "object",
     properties: {
         userId: { type: "integer" },
@@ -11,3 +11,5 @@ export const borrowSchema = {
     required: ["userId", "bookId"],
     additionalProperties: false,
 };
+
+module.exports = { borrowSchema }

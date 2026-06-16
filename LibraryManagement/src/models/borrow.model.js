@@ -1,5 +1,5 @@
-import { DataTypes } from "sequelize";
-import {sequelize} from "../config/database.js";
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database.js');
 
 const Borrow = sequelize.define(
   "borrows",
@@ -49,4 +49,4 @@ const Borrow = sequelize.define(
   }
 );
 
-export default Borrow;
+module.exports = Borrow;

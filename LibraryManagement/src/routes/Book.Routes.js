@@ -1,13 +1,13 @@
-import * as bookController from '../controller/book.Controller.js'
-import { Router } from 'express'
-import validate from '../middleware/validate.js'
-import { bookSchema } from '../schemas/book.schema.js'
+const express = require('express');
+const bookController = require('../controller/book.Controller.js');
+const validate = require('../middleware/validate.js');
+const { bookSchema } = require('../schemas/book.schema.js');
 
-const routes = Router();
+const routes = express.Router();
 
-routes.post('/addBooks', validate(bookSchema), bookController.addBooksController)
-routes.get('/getBooks', bookController.getBooksController)
-routes.patch('/updateBooks/:id', validate(bookSchema), bookController.updateBooksController)
-routes.delete('/deleteBooks/:id', bookController.deleteBooksController)
+routes.post('/addBooks', validate(bookSchema), bookController.addBooksController);
+routes.get('/getBooks', bookController.getBooksController);
+routes.patch('/updateBooks/:id', validate(bookSchema), bookController.updateBooksController);
+routes.delete('/deleteBooks/:id', bookController.deleteBooksController);
 
-export default routes;
+module.exports = routes;

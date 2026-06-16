@@ -1,8 +1,8 @@
-import Book from "../models/book.model.js"
-import AppError from "../error/error.js"
-import Author from "../models/author.model.js"
+const Book = require('../models/book.model.js')
+const AppError = require('../error/error.js')
+const Author = require('../models/author.model.js')
 
-export const addBookService = async ({ title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies }) => {
+const addBookService = async ({ title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies }) => {
     try {
         // console.log(title, isbn, authorId, genre, publishedYear, totalCopies, availableCopies)
 
@@ -24,7 +24,7 @@ export const addBookService = async ({ title, isbn, authorId, genre, publishedYe
 }
 
 
-export const getBookService = async () => {
+const getBookService = async () => {
     try {
         const books = await Book.findAll({ include: { model: Author, as: 'author', attributes: ['id', 'name'] } })
         if (!books)
@@ -34,7 +34,7 @@ export const getBookService = async () => {
         throw new AppError('Error fetching books', 500)
     }
 }
-export const updateBookService = async (id, updateData) => {
+const updateBookService = async (id, updateData) => {
     try {
 
         console.log(updateData)
@@ -55,7 +55,7 @@ export const updateBookService = async (id, updateData) => {
         throw err;
     }
 }
-export const deleteBookService = async (id) => {
+const deleteBookService = async (id) => {
     try {
         const book = await Book.findByPk(id)
         if (!book)
@@ -66,3 +66,5 @@ export const deleteBookService = async (id) => {
         throw new AppError('Error deleting book', 500)
     }
 }
+
+module.exports = { addBookService, getBookService, updateBookService, deleteBookService }

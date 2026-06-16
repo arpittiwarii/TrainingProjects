@@ -1,32 +1,33 @@
-import dotenv from "dotenv"
-dotenv.config({ path: new URL('../.env', import.meta.url).pathname });
+const dotenv = require('dotenv');
+const path = require('path');
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-const ErrorHandler = (err,req,res,next)=>{
+const ErrorHandler = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || "error";
 
-    if(process.env.NODE_ENV === "development"){
+    if (process.env.NODE_ENV === "development") {
         return res.status(err.statusCode).json({
-            status:err.status,
-            message:err.message,
-            stack:err.stack,
-            error:err
+            status: err.status,
+            message: err.message,
+            stack: err.stack,
+            error: err
         })
     }
 
-    if(err.isOperational){
+    if (err.isOperational) {
         return res.status(err.statusCode).json({
-            status:err.status,
-            message:err.message
+            status: err.status,
+            message: err.message
         })
     }
 
     console.error("ERROR 💥", err);
 
     return res.status(500).json({
-        status:"error",
-        message:"something went wrong"
+        status: "error",
+        message: "something went wrong"
     })
-}
+};
 
-export default ErrorHandler;
+module.exports = ErrorHandler;

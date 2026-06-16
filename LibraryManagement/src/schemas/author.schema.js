@@ -1,5 +1,5 @@
 
-export const authorSchema = {
+const authorSchema = {
     type: "object",
     required: ["name", "bio", "birth_date"],
     properties: {
@@ -26,3 +26,5 @@ export const authorSchema = {
         }
     }
 }
+
+module.exports = { authorSchema }
