@@ -41,7 +41,7 @@ import { connectRabbitMQ }
     from "./connection.js";
 
 
-console.log('fetching messages...')
+console.log('waiting for messages...')
 async function consumeOrders() {
 
     const channel =

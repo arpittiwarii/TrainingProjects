@@ -14,4 +14,3 @@ export async function createOrder() {
 
     return order;
 }
-createOrder();

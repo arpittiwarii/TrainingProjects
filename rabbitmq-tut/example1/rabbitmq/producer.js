@@ -58,9 +58,7 @@
 import { connectRabbitMQ }
     from "./connection.js";
 
-export async function publishOrder(
-    order
-) {
+export async function publishOrder(order) {
 
     const channel =
         await connectRabbitMQ();
