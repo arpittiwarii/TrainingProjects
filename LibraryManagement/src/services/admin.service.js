@@ -2,7 +2,7 @@ const User = require('../models/user.model.js')
 const Book = require('../models/book.model.js')
 
 const getUserService = async () => {
-    const users = await User.findAll({ attributes: ['id', 'name', 'email', 'role', 'borrow_limit', 'createdAt', 'updatedAt'] });
+    const users = await User.findAll({ attributes: ['id', 'name', 'email', 'role', 'borrow_limit', 'isVerify', 'balance', 'createdAt', 'updatedAt'] });
 
     return { users };
 };

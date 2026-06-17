@@ -2,6 +2,7 @@ const Author = require('./author.model.js');
 const Book = require('./book.model.js');
 const User = require('./user.model.js');
 const Borrow = require('./borrow.model.js');
+const OTP = require('./opt.model.js')
 
 Author.hasMany(Book, {
   foreignKey: 'authorId',
@@ -34,9 +35,21 @@ Borrow.belongsTo(User, {
   as: 'user',
 });
 
+User.hasOne(OTP, {
+  foreignKey: 'userId',
+  as: 'user',
+  onDelete: 'CASCADE',
+})
+
+OTP.belongsTo(User, {
+  foreignKey: 'userId',
+  as: 'user'
+})
+
 module.exports = {
   Author,
   Book,
   User,
   Borrow,
+  OTP
 };
