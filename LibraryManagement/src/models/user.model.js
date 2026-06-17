@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/database.js');
+const { type } = require('node:os');
 
 const User = sequelize.define(
   "users",
@@ -27,6 +28,15 @@ const User = sequelize.define(
     role: {
       type: DataTypes.ENUM("USER", "ADMIN"),
       defaultValue: "USER",
+    },
+    isVerify: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    balance: {
+      type: DataTypes.INTEGER,
+      min: 0,
+      defaulValue: 0
     },
     borrow_limit: {
       type: DataTypes.INTEGER,
