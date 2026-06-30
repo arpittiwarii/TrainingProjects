@@ -5,7 +5,7 @@
 }
 
 body{
-    background-color: rgb(68, 66, 66);
+    background: radial-gradient(rgb(39, 39, 39),rgb(99, 88, 88))
 }
 
 
@@ -13,14 +13,27 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    transition: 0.5s;
+}
+.p-center-align{
+    text-align: center;
+}
+.content-center-align{
+    align-content: center;
+}
+.font-primary{
+
+    color: var(--primary-font-colour);
+}
+.black-bg-color{
+    background-color: var(--bg-color);
+
 }
 .navbar{
-    color: var(--primary-font-colour);
     padding: 20px 10px;
     display: flex;
     justify-content: space-between;
     height: auto;
-    background-color: var(--bg-color);
 }
 .navbar p{
     margin-left: 60px;
@@ -36,17 +49,28 @@ body{
 }
 ul li{
     margin-left: 25px;
-    
-    
+    text-align: center;
 }
+
+
+
 ul li a{
+    justify-items: center;
+   
+    display: block;
     color: var(--primary-font-colour);
     text-decoration: none;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 14px;
+    height: 50px;
+    width: 80px;
+    
     }
 ul li a:hover{
+    background-color: rgb(65, 65, 65);
+    border-radius: 20px;
+    background-color: azure;
     color: rgb(242, 135, 4);
 }
 
@@ -147,28 +171,49 @@ ul li a:hover{
     margin: 5px 0 0 30px;
     overflow: scroll;
 }
+/* a:visited{
 
+    color:purple;
+    
+    } */
 .postcards{
+    border: 1px solid black;
+    margin-left: -20px;
     padding-left: 5px;
     
-    position: static;
+    position: relative;
     min-width: 200px;
 
     height: 250px;
     width: 250px;
     background-color: rgb(163, 162, 162);
     border-radius: 20px;
-    
+    transition: 0.5s;
+
+}
+.postcards:hover:first-child{
+    position: relative;
+    transform: rotate(5deg) scale(1.17) translateY(-8px);
+    z-index: 1;
+    margin: 10px 35px;
+    z-index: 10px;
 }
 .postcards:hover {
-    transition: 1s;
     position: relative;
-    width: 300px;
-
-    bottom: 20px;
-    right: 20px;
     
+    transform: scale(1.17) translateY(-8px);
+    z-index: 1;
+    margin: 10px 35px;
+    z-index: 10px;
 }
+/* p::before{
+
+    content:"🔥 ";
+    
+    }
+    blockquote::before{
+        content:"“";
+    } */
 .postcards p{
     margin-top: 30px;    
 }
